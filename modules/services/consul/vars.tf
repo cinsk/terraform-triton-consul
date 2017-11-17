@@ -44,3 +44,8 @@ variable "interface" {
   default = "eth0"
   description = "NET interface that consul will advertise itself (see -advertise option of consul agent)"
 }
+
+variable "private_key" {
+  type = "string"
+  description = "Private key (the content, not a pathname) to connect Triton instances"
+}

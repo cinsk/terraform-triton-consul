@@ -1,4 +1,3 @@
-home = "USER-HOME-DIRECTORY"
 triton_account_name = "YOUR-TRITON-ACCOUNT-NAME"
 triton_account_uuid = "YOUR-TRITON-ACCOUNT-UUID"
 triton_region = "TRITON-REGION"

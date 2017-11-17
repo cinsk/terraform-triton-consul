@@ -18,7 +18,11 @@ data "triton_network" "private" {
 
 module "consul" {
   source = "github.com/cinsk/terraform-triton-consul/modules/services/consul"
+  # source = "../modules/services/consul"
 
+  instances = 3
+  expect = 3
+  
   name = "${var.consul_name}"
   networks = [
     "${data.triton_network.public.id}", # eth0
@@ -27,14 +31,14 @@ module "consul" {
   ]
 
   interface = "eth1"
-  instances = 3
-  expect = 3
 
   data_center = "${var.triton_region}"
   bastion_host = "${var.bastion_host}"
   
   # domain_name = "${var.consul_name}.svc.${var.triton_account_uuid}.${var.triton_region}.cns.joyent.com"
   domain_name = "${var.consul_name}.svc.${var.triton_account_uuid}.${var.triton_region}.triton.zone"
+  
+  private_key = "${file(pathexpand("~/.ssh/id_rsa"))}"
 }
 
 output "consul_name" {

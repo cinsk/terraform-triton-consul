@@ -41,7 +41,7 @@ resource "triton_machine" "consul" {
   connection {
     type = "ssh"
     user = "root"
-    private_key = "${file(pathexpand("~/.ssh/id_rsa"))}"
+    private_key = "${var.private_key}"
     host = "${self.primaryip}"
     
     bastion_host = "${var.bastion_host}"
