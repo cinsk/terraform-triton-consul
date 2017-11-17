@@ -4,14 +4,11 @@
 # Launch consul(1), if consul(1) somehow crashes, launch again repeatedly.
 #
 
-DN="$1"
-EXPECT="$2"
-DC="$3"
-
 PROGRAM_NAME=$(basename "$0")
 ENDPOINTS=/tmp/endpoints.$$
 PIDFILE=/var/run/consul-launcher.pid
 CONSUL_CONF=/var/local/consul.conf.json
+
 endpoints() {
     local dn="$1"
     dig +noall +aaonly +answer "$dn" | awk '{ print $5 }'
@@ -23,11 +20,16 @@ log() {
 
 exec >& /var/log/consul.launcher.log
 
-if [ "$#" -ne 3 ]; then
+if [ "$#" -ne 4 ]; then
     log "wrong number of argument(s)"
     log "Usage: $PROGRAM_NAME CONSUL-DOMAIN-NAME EXPECT DATA-CENTER"
     exit 1
 fi
+
+DN="$1"
+EXPECT="$2"
+DC="$3"
+INTERFACE="$4"
 
 echo "$$" > "$PIDFILE"
 log "$PROGRAM_NAME started. pid = $$, saved to $PIDFILE"
@@ -46,7 +48,7 @@ while :; do
     done
 
     log "generating consul configuration in $CONSUL_CONF"
-    /var/local/consul-genconfig.sh "$DN" "$EXPECT" "$DC" "$ENDPOINTS" "$CONSUL_CONF"
+    /var/local/consul-genconfig.sh "$DN" "$EXPECT" "$DC" "$ENDPOINTS" "$INTERFACE" "$CONSUL_CONF"
 
     cmdline=("consul" "agent" "-config-file=/var/local/consul.conf.json" "-pid-file=/var/run/consul.pid")
     log "launching consul: ${cmdline[*]}"

@@ -14,6 +14,7 @@ data "template_file" "user_data" {
     CONSUL_DOMAIN_NAME = "${var.domain_name}"
     CONSUL_EXPECTED = "${var.expect}"
     CONSUL_DATACENTER = "${var.data_center}"
+    CONSUL_INTERFACE = "${var.interface}"
   }
 }
 

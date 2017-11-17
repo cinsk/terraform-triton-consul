@@ -30,8 +30,9 @@ error() {
 DN="$1"
 EXPECT="$2"
 DC="$3"
+INTERFACE="$4"
 
-if [ "$#" -ne 3 ]; then
+if [ "$#" -ne 4 ]; then
     error 0 "wrong number of argument(s)"
     error 1 "usage: $PROGRAM_NAME CONSUL-DOMAIN-NAME EXPECTED-INSTANCES DATA-CENTER"
 fi
@@ -53,7 +54,7 @@ while :; do
     fi
 
     # Generate new consul(1) configuration
-    /var/local/consul-genconfig.sh "$DN" "$EXPECT" "$DC" "$ENDPOINTS" "$TMPCONF"
+    /var/local/consul-genconfig.sh "$DN" "$EXPECT" "$DC" "$ENDPOINTS" "$INTERFACE" "$TMPCONF"
 
     if cmp "$TMPCONF" "$CONSUL_CONF"; then
         # If the new configuration is the same as the current one, do nothing

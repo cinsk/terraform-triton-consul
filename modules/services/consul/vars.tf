@@ -35,7 +35,12 @@ variable "bastion_user" {
   default = "root"
 }
 
-
 variable "domain_name" {
   type = "string"
+}
+
+variable "interface" {
+  type = "string"
+  default = "eth0"
+  description = "NET interface that consul will advertise itself (see -advertise option of consul agent)"
 }
