@@ -1,11 +1,12 @@
 
 # Consul Terraform Module
 
+This package contains a [Terraform](https://www.terraform.io/) module to create a [Consul](https://www.consul.io) cluster in [Joyent Triton Cloud](https://www.joyent.com/).
+
 ## How to use this module
 
-* `module/` contains the Terraform Consul module for Triton
+* `module/` contains the Terraform Consul module
 * `example/` contains the example Terraform configuration to launch the Consul cluster.
-
 
 
 1. `cd example/`
